@@ -1,0 +1,79 @@
+{
+  "collectionName": "components_shared_site_settings",
+  "info": {
+    "displayName": "site Setting"
+  },
+  "options": {},
+  "attributes": {
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "WebsiteName": {
+      "type": "string"
+    },
+    "favicon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "herotitle": {
+      "type": "string"
+    },
+    "heroSubtitle": {
+      "type": "blocks"
+    },
+    "heroImage": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "heroButtonText": {
+      "type": "string"
+    },
+    "heroButtonLink": {
+      "type": "string"
+    },
+    "footerDescription": {
+      "type": "blocks"
+    },
+    "email": {
+      "type": "email"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "facebook": {
+      "type": "string"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "linkedin": {
+      "type": "string"
+    },
+    "github": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
