@@ -1,12 +1,17 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+
+import "./styles/globals.css";
+
+import App from "./App";
+
 import AuthProvider from "./context/AuthContext";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <HelmetProvider>
+  <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
-        <Toaster position="top-right" />
-        <App />
-      </AuthProvider>
+      <App />
     </BrowserRouter>
-  </HelmetProvider>,
+  </React.StrictMode>,
 );

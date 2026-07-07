@@ -1,20 +1,19 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
-import { loginUser, registerUser, getCurrentUser } from "../services/auth";
+import authService from "../services/authService";
 
-const AuthContext = createContext();
-
-export const useAuth = () => useContext(AuthContext);
+export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    checkUser();
+    loadUser();
   }, []);
 
-  const checkUser = async () => {
+  const loadUser = async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -23,33 +22,37 @@ export default function AuthProvider({ children }) {
     }
 
     try {
-      const currentUser = await getCurrentUser(token);
+      const currentUser = await authService.getCurrentUser();
+
       setUser(currentUser);
-    } catch (error) {
+    } catch {
       localStorage.removeItem("token");
     }
 
     setLoading(false);
   };
 
-  const login = async (data) => {
-    const response = await loginUser(data);
+  const login = async (identifier, password) => {
+    const data = await authService.login({
+      identifier,
+      password,
+    });
 
-    localStorage.setItem("token", response.jwt);
+    localStorage.setItem("token", data.jwt);
 
-    setUser(response.user);
-
-    return response;
+    setUser(data.user);
   };
 
-  const register = async (data) => {
-    const response = await registerUser(data);
+  const register = async (username, email, password) => {
+    const data = await authService.register({
+      username,
+      email,
+      password,
+    });
 
-    localStorage.setItem("token", response.jwt);
+    localStorage.setItem("token", data.jwt);
 
-    setUser(response.user);
-
-    return response;
+    setUser(data.user);
   };
 
   const logout = () => {

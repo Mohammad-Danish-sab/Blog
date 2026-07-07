@@ -5,56 +5,80 @@ import { Link } from "react-router-dom";
 import Logo from "../common/Logo";
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
+  const [mobileMenu, setMobileMenu] = useState(false);
+
+  const token = localStorage.getItem("token");
 
   return (
-    <header className="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+    <header className="sticky top-0 z-50 backdrop-blur-xl bg-slate-950/80 border-b border-slate-800">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-center h-20">
+        <div className="h-20 flex items-center justify-between">
+          {/* Logo */}
           <Logo />
 
-          {/* Desktop */}
+          {/* Desktop Menu */}
+          <nav className="hidden lg:flex items-center gap-8 text-slate-300">
+            <Link to="/" className="hover:text-cyan-400 transition">
+              Home
+            </Link>
 
-          <nav className="hidden lg:flex items-center gap-8">
-            <Link to="/">Home</Link>
+            <Link to="/blogs" className="hover:text-cyan-400 transition">
+              Blogs
+            </Link>
 
-            <Link to="/blogs">Blogs</Link>
+            <Link to="/about" className="hover:text-cyan-400 transition">
+              About
+            </Link>
 
-            <Link to="/about">About</Link>
-
-            <Link to="/contact">Contact</Link>
+            <Link to="/contact" className="hover:text-cyan-400 transition">
+              Contact
+            </Link>
           </nav>
 
-          {/* Right */}
-
+          {/* Right Side */}
           <div className="hidden lg:flex items-center gap-4">
-            <button>
-              <Search />
+            <button className="p-3 rounded-xl bg-slate-900 hover:bg-slate-800 transition">
+              <Search size={20} />
             </button>
 
-            <Link to="/login" className="px-4 py-2 rounded-lg bg-slate-800">
-              Login
-            </Link>
+            {!token ? (
+              <>
+                <Link
+                  to="/login"
+                  className="px-5 py-2 rounded-xl border border-slate-700 hover:border-cyan-500 transition"
+                >
+                  Login
+                </Link>
 
-            <Link
-              to="/register"
-              className="px-5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700"
-            >
-              Sign Up
-            </Link>
+                <Link
+                  to="/register"
+                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 text-white font-semibold"
+                >
+                  Sign Up
+                </Link>
+              </>
+            ) : (
+              <Link
+                to="/profile"
+                className="w-11 h-11 rounded-full bg-slate-800 flex items-center justify-center"
+              >
+                <User size={20} />
+              </Link>
+            )}
           </div>
 
-          {/* Mobile */}
-
-          <button className="lg:hidden" onClick={() => setOpen(!open)}>
-            {open ? <X /> : <Menu />}
+          {/* Mobile Button */}
+          <button
+            onClick={() => setMobileMenu(!mobileMenu)}
+            className="lg:hidden"
+          >
+            {mobileMenu ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
-      </div>
 
-      {open && (
-        <div className="lg:hidden bg-slate-900">
-          <div className="flex flex-col p-6 gap-5">
+        {/* Mobile Menu */}
+        {mobileMenu && (
+          <div className="lg:hidden py-6 flex flex-col gap-5 text-slate-300">
             <Link to="/">Home</Link>
 
             <Link to="/blogs">Blogs</Link>
@@ -67,8 +91,8 @@ export default function Navbar() {
 
             <Link to="/register">Sign Up</Link>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </header>
   );
 }

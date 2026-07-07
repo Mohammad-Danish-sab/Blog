@@ -5,30 +5,48 @@ import Blogs from "../pages/Blogs";
 import BlogDetails from "../pages/BlogDetails";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import Profile from "../pages/Profile";
 import About from "../pages/About";
 import Contact from "../pages/Contact";
-import Profile from "../pages/Profile";
+import Category from "../pages/Category";
+import Search from "../pages/Search";
 import NotFound from "../pages/NotFound";
+
+import ProtectedRoute from "./ProtectedRoute";
 
 export default function AppRoutes() {
   return (
     <Routes>
+      {/* Public Routes */}
       <Route path="/" element={<Home />} />
 
       <Route path="/blogs" element={<Blogs />} />
 
       <Route path="/blogs/:slug" element={<BlogDetails />} />
 
-      <Route path="/login" element={<Login />} />
+      <Route path="/category/:slug" element={<Category />} />
 
-      <Route path="/register" element={<Register />} />
+      <Route path="/search" element={<Search />} />
 
       <Route path="/about" element={<About />} />
 
       <Route path="/contact" element={<Contact />} />
 
-      <Route path="/profile" element={<Profile />} />
+      <Route path="/login" element={<Login />} />
 
+      <Route path="/register" element={<Register />} />
+
+      {/* Protected Routes */}
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+
+      {/* 404 */}
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

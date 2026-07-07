@@ -1,8 +1,11 @@
 import Layout from "../components/layout/Layout";
+
 import Hero from "../components/home/Hero";
 import FeaturedBlogs from "../components/home/FeaturedBlogs";
 import LatestBlogs from "../components/home/LatestBlogs";
 import Categories from "../components/home/Categories";
+import TrendingBlogs from "../components/home/TrendingBlogs";
+import Newsletter from "../components/home/Newsletter";
 
 export default function Home() {
   return (
@@ -11,6 +14,8 @@ export default function Home() {
       <FeaturedBlogs />
       <LatestBlogs />
       <Categories />
+      <TrendingBlogs />
+      <Newsletter />
     </Layout>
   );
 }
