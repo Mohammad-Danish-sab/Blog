@@ -19,24 +19,16 @@ export default function AppRoutes() {
     <Routes>
       {/* Public Routes */}
       <Route path="/" element={<Home />} />
-
       <Route path="/blogs" element={<Blogs />} />
-
       <Route path="/blogs/:slug" element={<BlogDetails />} />
-
       <Route path="/category/:slug" element={<Category />} />
-
       <Route path="/search" element={<Search />} />
-
       <Route path="/about" element={<About />} />
-
       <Route path="/contact" element={<Contact />} />
-
       <Route path="/login" element={<Login />} />
-
       <Route path="/register" element={<Register />} />
 
-      {/* Protected Routes */}
+      {/* Protected Route */}
       <Route
         path="/profile"
         element={
