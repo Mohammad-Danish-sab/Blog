@@ -1,47 +1,25 @@
-import api from "./api";
+import axios from "axios";
+
+const API_URL = "http://localhost:1337/api";
 
 const blogService = {
-  getBlogs: async (page = 1, search = "", category = "") => {
-    let url = `/blogs?populate=*`;
-
-    url += `&pagination[page]=${page}`;
-    url += `&pagination[pageSize]=6`;
-
-    if (search) {
-      url += `&filters[title][$containsi]=${search}`;
-    }
-
-    if (category) {
-      url += `&filters[category][slug][$eq]=${category}`;
-    }
-
-    const response = await api.get(url);
-
+  getBlogs: async () => {
+    const response = await axios.get(`${API_URL}/blogs?populate=*`);
     return response.data;
   },
 
-  getBlogBySlug: async (slug) => {
-    const response = await api.get(
-      `/blogs?filters[slug][$eq]=${slug}&populate=*`,
-    );
-
-    return response.data.data[0];
-  },
-
   getFeaturedBlogs: async () => {
-    const response = await api.get(
-      `/blogs?filters[featured][$eq]=true&populate=*`,
+    const response = await axios.get(
+      `${API_URL}/blogs?filters[featured][$eq]=true&populate=*`,
     );
-
-    return response.data.data;
+    return response.data;
   },
 
-  getRelatedBlogs: async (categoryId, currentId) => {
-    const response = await api.get(
-      `/blogs?filters[category][id][$eq]=${categoryId}&filters[id][$ne]=${currentId}&populate=*`,
+  getLatestBlogs: async () => {
+    const response = await axios.get(
+      `${API_URL}/blogs?sort=createdAt:desc&pagination[pageSize]=6&populate=*`,
     );
-
-    return response.data.data;
+    return response.data;
   },
 };
 

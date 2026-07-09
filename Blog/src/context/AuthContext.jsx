@@ -1,12 +1,10 @@
 import { createContext, useEffect, useState } from "react";
-
 import authService from "../services/authService";
 
 export const AuthContext = createContext();
 
 export default function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
-
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,9 +21,8 @@ export default function AuthProvider({ children }) {
 
     try {
       const currentUser = await authService.getCurrentUser();
-
       setUser(currentUser);
-    } catch {
+    } catch (error) {
       localStorage.removeItem("token");
     }
 
@@ -39,7 +36,6 @@ export default function AuthProvider({ children }) {
     });
 
     localStorage.setItem("token", data.jwt);
-
     setUser(data.user);
   };
 
@@ -51,7 +47,6 @@ export default function AuthProvider({ children }) {
     });
 
     localStorage.setItem("token", data.jwt);
-
     setUser(data.user);
   };
 
